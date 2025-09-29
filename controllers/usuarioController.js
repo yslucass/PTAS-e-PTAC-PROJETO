@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { PrismaClient } = require("@prisma/client");
 const client = new PrismaClient();
 
-class UsuarioController {
+class usuarioController {
   static async cadastrar(req, res) {
     try {
       const { nome, email, password } = req.body;
@@ -70,4 +70,4 @@ class UsuarioController {
   }
 }
 
-module.exports = UsuarioController;
+module.exports = usuarioController;

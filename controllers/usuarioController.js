@@ -9,7 +9,7 @@ class usuarioController {
       const { nome, email, password } = req.body;
 
       // Verifica se já existe usuário com o mesmo email
-      const existente = await client.usuario.findUnique({ where: { email } });
+      const existente = await client.Usuario.findUnique({ where: { email } });
       if (existente) {
         return res.json({
           mensagem: "Email já cadastrado!",
@@ -20,8 +20,8 @@ class usuarioController {
       const salt = bcryptjs.genSaltSync(8);
       const hashSenha = bcryptjs.hashSync(password, salt);
 
-      const usuario = await client.usuario.create({
-        data: { nome, email, password: hashSenha },
+      const usuario = await client.Usuario.create({
+        data: { nome, email, password: hashSenha, tipo: "Usuario" },
       });
 
       return res.json({
@@ -40,7 +40,7 @@ class usuarioController {
   static async login(req, res) {
     const { email, password } = req.body;
 
-    const usuario = await client.usuario.findUnique({ where: { email } });
+    const usuario = await client.Usuario.findUnique({ where: { email } });
     if (!usuario) {
       return res.json({
         mensagem: "Usuário não encontrado!",

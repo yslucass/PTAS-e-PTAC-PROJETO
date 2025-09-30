@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 describe("Testes de Usuario", () => {
-  // Antes de tudo, limpar tabela usuario (ambiente de testes)
+
   beforeAll(async () => {
     await prisma.usuario.deleteMany();
   });

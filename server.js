@@ -3,8 +3,12 @@ const app = express();
 app.use(express.json());
 
 const usuarioRoutes = require("./routes/usuarioRoutes.js");
-app.use("/auth", usuarioRoutes);
+app.use("/usuario", usuarioRoutes);
 
-app.listen(8000, (err) => {
+if (require.main === module) {
+  app.listen(8000, () => {
     console.log("Aplicação rodando em localhost:8000");
-});
+  });
+}
+
+module.exports = app;

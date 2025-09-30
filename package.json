@@ -5,13 +5,16 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.16.2"
+    "prisma": "^6.16.2",
+    "supertest": "^7.1.4"
   },
   "name": "ptas-e-ptac-projeto",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^30.2.0"
+  },
   "scripts": {
     "test": "jest",
     "start": "node server.js"

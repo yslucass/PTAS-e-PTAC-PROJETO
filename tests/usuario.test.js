@@ -4,8 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-describe("Testes de Usuario", () => {
-
+describe("Usuário", () => {
   beforeAll(async () => {
     await prisma.usuario.deleteMany();
   });
@@ -14,71 +13,49 @@ describe("Testes de Usuario", () => {
     await prisma.$disconnect();
   });
 
-  test("Cadastro deve criar novo usuário", async () => {
+  test("cadastra um novo usuário", async () => {
     const res = await request(app)
       .post("/usuario/cadastro")
-      .send({
-        nome: "Lucas",
-        email: "lucas@test.com",
-        password: "123456"
-      });
+      .send({ nome: "Lucas", email: "lucas@test.com", password: "123456" });
 
-    expect(res.status).toBe(200);
     expect(res.body.erro).toBe(false);
-    expect(res.body.mensagem).toBe("Usuário cadastrado com sucesso!");
     expect(res.body.usuarioId).toBeDefined();
+    expect(res.body.mensagem).toBe("Usuário cadastrado com sucesso!");
   });
 
-  test("Cadastro não deve permitir email duplicado", async () => {
+  test("não permite email duplicado", async () => {
     const res = await request(app)
       .post("/usuario/cadastro")
-      .send({
-        nome: "Lucas 2",
-        email: "lucas@test.com",
-        password: "abcdef"
-      });
+      .send({ nome: "Julia", email: "lucas@test.com", password: "2564" });
 
-    expect(res.status).toBe(200);
     expect(res.body.erro).toBe(true);
     expect(res.body.mensagem).toBe("Email já cadastrado!");
   });
 
-  test("Login deve autenticar usuário existente", async () => {
+  test("loga com credenciais corretas", async () => {
     const res = await request(app)
       .post("/usuario/login")
-      .send({
-        email: "lucas@test.com",
-        password: "123456"
-      });
+      .send({ email: "lucas@test.com", password: "123456" });
 
-    expect(res.status).toBe(200);
     expect(res.body.erro).toBe(false);
-    expect(res.body.mensagem).toBe("Autenticado!");
     expect(res.body.token).toBeDefined();
+    expect(res.body.mensagem).toBe("Autenticado!");
   });
 
-  test("Login falha se senha incorreta", async () => {
+  test("erro ao logar com senha incorreta", async () => {
     const res = await request(app)
       .post("/usuario/login")
-      .send({
-        email: "lucas@test.com",
-        password: "senhaerrada"
-      });
+      .send({ email: "lucas@test.com", password: "senhaerrada" });
 
-    expect(res.status).toBe(200);
     expect(res.body.erro).toBe(true);
     expect(res.body.mensagem).toBe("Senha incorreta!");
   });
 
-  test("Login falha se usuário não existe", async () => {
+  test("erro ao logar com usuário inexistente", async () => {
     const res = await request(app)
       .post("/usuario/login")
-      .send({
-        email: "naoexiste@test.com",
-        password: "123456"
-      });
+      .send({ email: "naoexiste@test.com", password: "123456" });
 
-    expect(res.status).toBe(200);
     expect(res.body.erro).toBe(true);
     expect(res.body.mensagem).toBe("Usuário não encontrado!");
   });

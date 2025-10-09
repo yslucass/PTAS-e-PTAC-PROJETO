@@ -15,7 +15,7 @@ describe("Usuário", () => {
 
   test("cadastra um novo usuário", async () => {
     const res = await request(app)
-      .post("/usuario/cadastro")
+      .post("/usuario/auth/cadastro")
       .send({ nome: "Lucas", email: "lucas@test.com", password: "123456" });
 
     expect(res.body.erro).toBe(false);
@@ -25,7 +25,7 @@ describe("Usuário", () => {
 
   test("não permite email duplicado", async () => {
     const res = await request(app)
-      .post("/usuario/cadastro")
+      .post("/usuario/auth/cadastro")
       .send({ nome: "Julia", email: "lucas@test.com", password: "2564" });
 
     expect(res.body.erro).toBe(true);
@@ -34,7 +34,7 @@ describe("Usuário", () => {
 
   test("loga com credenciais corretas", async () => {
     const res = await request(app)
-      .post("/usuario/login")
+      .post("/usuario/auth/login")
       .send({ email: "lucas@test.com", password: "123456" });
 
     expect(res.body.erro).toBe(false);
@@ -44,7 +44,7 @@ describe("Usuário", () => {
 
   test("erro ao logar com senha incorreta", async () => {
     const res = await request(app)
-      .post("/usuario/login")
+      .post("/usuario/auth/login")
       .send({ email: "lucas@test.com", password: "senhaerrada" });
 
     expect(res.body.erro).toBe(true);
@@ -53,7 +53,7 @@ describe("Usuário", () => {
 
   test("erro ao logar com usuário inexistente", async () => {
     const res = await request(app)
-      .post("/usuario/login")
+      .post("/usuario/auth/login")
       .send({ email: "naoexiste@test.com", password: "123456" });
 
     expect(res.body.erro).toBe(true);

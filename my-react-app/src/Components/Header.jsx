@@ -13,6 +13,8 @@ function Header() {
         <Link to="/Login" style={styles.link}>Login</Link>
         <Link to="/Cadastro" style={styles.link}>Cadastro</Link>
         <Link to="/Atualizar-Perfil" style={styles.link}>Atualizar Perfil</Link>
+        <Link to="/ConsultarMesas" style={styles.link}>Consultar Mesas</Link>
+        <Link to="/ListarReservas" style={styles.link}>Listar Reservas</Link>
       </nav>
     </header>
   );

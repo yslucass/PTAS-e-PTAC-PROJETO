@@ -7,6 +7,8 @@ import Login from './Pages/Login';
 import Cadastro from './Pages/Cadastro';
 import AtualizarPerfil from './Pages/AtualizarPerfil';
 import Perfil from './Pages/Perfil';
+import ConsultarMesas from './Pages/ConsultarMesas';
+import ListarReservas from './Pages/ListarReservas';
 
 function AppRoutes() {
   return (
@@ -19,6 +21,8 @@ function AppRoutes() {
       <Route path="/Cadastro" element={<Cadastro/>} />
       <Route path="/Atualizar-Perfil" element={<AtualizarPerfil/>} />
       <Route path="/Perfil" element={<Perfil/>} />
+      <Route path="/ConsultarMesas" element={<ConsultarMesas/>} />
+      <Route path="/ListarReservas" element={<ListarReservas/>} />
     </Routes>
   );
 }
